@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Mandala.Models\Mandala.Data.csproj" />
+    <ProjectReference Include="..\Mandala.Data\Mandala.Data.csproj" />
   </ItemGroup>
 
 </Project>
