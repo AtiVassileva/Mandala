@@ -1,14 +1,22 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Security.Claims;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Mandala.Web.Controllers
 {
     public class UsersController : Controller
     {
-        //// GET: UsersController
-        //public ActionResult Index()
-        //{
-        //    return View();
-        //}
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public UsersController(IHttpContextAccessor httpContextAccessor)
+        {
+            _httpContextAccessor = httpContextAccessor;
+        }
+        // GET: UsersController
+        public ActionResult Index()
+        {
+            var userId = _httpContextAccessor.HttpContext!.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            Console.WriteLine($"Current user id: {userId}");
+            return View();
+        }
 
         //// GET: UsersController/Details/5
         //public ActionResult Details(int id)

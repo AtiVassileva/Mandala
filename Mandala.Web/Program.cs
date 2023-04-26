@@ -1,7 +1,7 @@
 using Mandala.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace Mandala
+namespace Mandala.Web
 {
     public class Program
     {
@@ -15,6 +15,8 @@ namespace Mandala
 
             builder.Services.AddDbContext<ApplicationDbContext>(
                 options => options.UseSqlServer(configuration["DefaultConnection"]));
+
+            builder.Services.AddHttpContextAccessor();
 
             var app = builder.Build();
             
