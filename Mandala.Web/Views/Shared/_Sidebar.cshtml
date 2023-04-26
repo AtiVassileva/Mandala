@@ -1,5 +1,8 @@
-﻿@{
+﻿@using System.Security.Claims
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@{
     var currentPath = Context.Request.Path.ToString();
+    var currentUserId = Context.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 }
 
 <div class="sidebar pe-4 pb-3">
@@ -8,10 +11,19 @@
             <h3 class="text-primary">Mandala</h3>
         </a>
         <div class="navbar-nav w-100">
-            <a asp-controller="Home" asp-action="Index" class="nav-item nav-link @(currentPath == "/" ? "active": "" )"><i class="fa fa-home me-2"></i>Home</a>
-            <a asp-controller="Classrooms" asp-action="Index" class="nav-item nav-link @(currentPath.Contains("/Classrooms") ? "active": "")"><i class="fa fa-th me-2"></i>Classrooms</a>
-            <a asp-controller="Computers" asp-action="Index" class="nav-item nav-link @(currentPath.Contains("/Computers") ? "active": "")"><i class="fa fa-laptop me-2"></i>Computers</a>
-            <a asp-controller="Subjects" asp-action="Index" class="nav-item nav-link @(currentPath.Contains("/Subjects") ? "active": "")"><i class="fa fa-chart-bar me-2"></i>Subjects</a>
+            
+            <a asp-controller="Home" asp-action="Index" class="nav-item nav-link @(currentPath == "/" ? "active" : "")"><i class="fa fa-home me-2"></i>Home</a>
+            @if (currentUserId == null)
+            {
+                <a asp-controller="Users" asp-action="Register" class="nav-item nav-link @(currentPath.Contains("/Register") ? "active" : "")"><i class="fa fa-home me-2"></i>Sign Up</a>
+                <a asp-controller="Users" asp-action="Login" class="nav-item nav-link @(currentPath.Contains("/Login") ? "active" : "")"><i class="fa fa-th me-2"></i>Sign In</a>
+            }
+            else
+            {
+                <a asp-controller="Classrooms" asp-action="Index" class="nav-item nav-link @(currentPath.Contains("/Classrooms") ? "active" : "")"><i class="fa fa-th me-2"></i>Classrooms</a>
+                <a asp-controller="Computers" asp-action="Index" class="nav-item nav-link @(currentPath.Contains("/Computers") ? "active" : "")"><i class="fa fa-laptop me-2"></i>Computers</a>
+                <a asp-controller="Subjects" asp-action="Index" class="nav-item nav-link @(currentPath.Contains("/Subjects") ? "active" : "")"><i class="fa fa-chart-bar me-2"></i>Subjects</a>
+            }
         </div>
     </nav>
 </div>

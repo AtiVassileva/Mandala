@@ -27,6 +27,8 @@ namespace Mandala.Web.Controllers
         // GET: UsersController/Create
         public ActionResult Register() => View();
 
+        public ActionResult Login() => View();
+
         //// POST: UsersController/Create
         //[HttpPost]
         //[ValidateAntiForgeryToken]
